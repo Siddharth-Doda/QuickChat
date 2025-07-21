@@ -15,7 +15,7 @@ const ChatContainer = () => {
   } = useContext(ChatContext);
   const { authUser, onlineUsers } = useContext(AuthContext);
 
-  const scrollEnd = useRef();
+  const scrollEnd = useRef(); // 🔁 SCROLL TARGET
   const [input, setInput] = useState('');
 
   const handleSendMessage = async (e) => {
@@ -39,19 +39,22 @@ const ChatContainer = () => {
     e.target.value = '';
   };
 
-  
-
+  // ✅ Get messages when a new user is selected
   useEffect(() => {
     if (selectedUser) {
       getMessages(selectedUser._id);
     }
   }, [selectedUser]);
 
+  // ✅ Scroll to bottom when messages change
   useEffect(() => {
-    if (scrollEnd.current && messages) {
-      scrollEnd.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
+    const timeout = setTimeout(() => {
+      if (scrollEnd.current) {
+        scrollEnd.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100); // delay to wait for render
+    return () => clearTimeout(timeout);
+  }, [messages, selectedUser]); // ✅ Also depend on selectedUser
 
   return selectedUser ? (
     <div className="h-full overflow-scroll relative backdrop-blur-lg">
@@ -116,10 +119,12 @@ const ChatContainer = () => {
             </div>
           </div>
         ))}
+        
+        {/* 👇 Auto-scroll target */}
         <div ref={scrollEnd}></div>
       </div>
 
-      {/* bottom input area */}
+      {/* input area */}
       <div className="absolute bottom-0 left-0 right-0 flex items-center gap-3 p-3">
         <div className="flex-1 flex items-center bg-gray-100/12 px-3 rounded-full ">
           <input
