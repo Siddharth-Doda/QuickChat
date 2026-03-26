@@ -54,3 +54,12 @@ dotenv (environment variables), CORS, Nodemon(development)
   - Stored in the database  
   - Instantly delivered to the receiver  
 - If the receiver is offline, messages are fetched when they reconnect  
+
+## Deployment
+
+- Frontend → Vercel
+- Backend → Render 
+
+## Final thoughts
+
+This project was a big step forward for me in understanding how real-time applications actually work. It’s not just about sending messages — it’s about managing connections, syncing data, and making everything feel instant.
