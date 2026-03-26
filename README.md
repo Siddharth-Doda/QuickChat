@@ -42,7 +42,7 @@ dotenv (environment variables), CORS, Nodemon(development)
 ### Chat Interface
 ![Chat](./screenshots/chat.png)
 
-### Active Users / Conversations
+### Profile Details
 ![Users](./screenshots/users.png)
 
 ## How it works
